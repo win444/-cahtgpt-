@@ -1,0 +1,1053 @@
+เส้นทาง:game:GetService("Players").LocalPlayer.Backpack.Glock.GunScript_Local
+
+-- Decompiler will be improved VERY SOON!
+-- Decompiled with Konstant V2.1, a fast Luau decompiler made in Luau by plusgiant5 (https://discord.gg/brNTY8nX8t)
+-- Decompiled on 2025-07-03 19:06:40
+-- Luau version 6, Types version 3
+-- Time taken: 0.088443 seconds
+
+-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+local UserInputService_upvr_2 = game:GetService("UserInputService")
+local MouseDeltaSensitivity_upvr = UserInputService_upvr_2.MouseDeltaSensitivity
+local TweenService_upvr = game:GetService("TweenService")
+local Parent_upvr = script.Parent
+local Handle_upvr = Parent_upvr:WaitForChild("Handle")
+local LocalPlayer_upvr = game:GetService("Players").LocalPlayer
+local mouse_upvr_2 = LocalPlayer_upvr:GetMouse()
+local CurrentCamera_upvr = workspace.CurrentCamera
+local SOME_upvr = workspace:WaitForChild(LocalPlayer_upvr.Name)
+local Humanoid_upvr = SOME_upvr:WaitForChild("Humanoid")
+local module_upvr_2 = require(Parent_upvr:WaitForChild("Setting"))
+local GunScript_Server_upvr = Parent_upvr:WaitForChild("GunScript_Server")
+local ChangeMagAndAmmo_upvr_2 = GunScript_Server_upvr:WaitForChild("ChangeMagAndAmmo")
+local VisualizeMuzzle_upvr = game.ReplicatedStorage:WaitForChild("VisualizeMuzzle")
+local GunGUI_upvr_2 = script:WaitForChild("GunGUI")
+local module_upvr_6 = require(GunGUI_upvr_2:WaitForChild("CrosshairModule"))
+local var182_upvw
+local var183_upvw
+local var184_upvw = Handle_upvr
+local SpringModule_2 = require(script.SpringModule)
+local tbl_19_upvr = {
+	scope = SpringModule_2.new(Vector3.new(0, 200, 0));
+}
+tbl_19_upvr.scope.s = module_upvr_2.ScopeSwaySpeed
+tbl_19_upvr.scope.d = module_upvr_2.ScopeSwayDamper
+tbl_19_upvr.knockback = SpringModule_2.new(Vector3.new())
+tbl_19_upvr.knockback.s = module_upvr_2.ScopeKnockbackSpeed
+tbl_19_upvr.knockback.d = module_upvr_2.ScopeKnockbackDamper
+local var187_upvw
+if module_upvr_2.DualEnabled then
+	var183_upvw = Parent_upvr:WaitForChild("Handle2", 2)
+	if var183_upvw == nil and module_upvr_2.DualEnabled then
+		error("\"Dual\" setting is enabled but \"Handle2\" is missing!")
+	end
+end
+local var188_upvw = false
+local var189_upvw = true
+local var190_upvw = false
+local var191_upvw = false
+local var192_upvw = false
+local var193_upvw = false
+local var194_upvw = false
+local Value_upvw_4 = GunScript_Server_upvr:WaitForChild("Mag").Value
+local Value_upvw_3 = GunScript_Server_upvr:WaitForChild("Ammo").Value
+if module_upvr_2.IdleAnimationID ~= nil or module_upvr_2.DualEnabled then
+	local any_LoadAnimation_result1_upvw = Humanoid_upvr:LoadAnimation(Parent_upvr:WaitForChild("IdleAnim"))
+end
+if module_upvr_2.FireAnimationID ~= nil then
+	var187_upvw = Parent_upvr:WaitForChild("FireAnim")
+	var187_upvw = Humanoid_upvr:LoadAnimation(var187_upvw)
+end
+if module_upvr_2.ReloadAnimationID ~= nil then
+end
+if module_upvr_2.ShotgunClipinAnimationID ~= nil then
+end
+if module_upvr_2.HoldDownAnimationID ~= nil then
+	local any_LoadAnimation_result1_upvw_5 = Humanoid_upvr:LoadAnimation(Parent_upvr:WaitForChild("HoldDownAnim"))
+end
+if module_upvr_2.EquippedAnimationID ~= nil then
+end
+function wait(arg1) -- Line 91
+	if arg1 ~= nil then
+		if 0 + game:GetService("RunService").Heartbeat:wait() < arg1 then
+			-- KONSTANTWARNING: GOTO [15] #11
+		end
+	else
+		game:GetService("RunService").Heartbeat:wait()
+	end
+end
+function numLerp(arg1, arg2, arg3) -- Line 103
+	return arg1 + (arg2 - arg1) * arg3
+end
+function RAND(arg1, arg2, arg3) -- Line 107
+	local var200 = 1 / (arg3 or 1)
+	return math.random(arg1 * var200, arg2 * var200) / var200
+end
+function CastRay(arg1, arg2, arg3) -- Line 113
+	--[[ Upvalues[1]:
+		[1]: Parent_upvr (readonly)
+	]]
+	local any_FindPartOnRay_result1_2, any_FindPartOnRay_result2 = game.Workspace:FindPartOnRay(Ray.new(arg1, arg2 * arg3))
+	if any_FindPartOnRay_result1_2 and (not Parent_upvr.Parent or any_FindPartOnRay_result1_2:IsDescendantOf(Parent_upvr.Parent) or 0.9 < any_FindPartOnRay_result1_2.Transparency) then
+		return CastRay(any_FindPartOnRay_result2 + arg2 * 0.01, arg2, arg3 - (arg1 - any_FindPartOnRay_result2).magnitude)
+	end
+	return any_FindPartOnRay_result2
+end
+local function Get3DPosition_upvr(arg1) -- Line 125, Named "Get3DPosition"
+	--[[ Upvalues[3]:
+		[1]: module_upvr_2 (readonly)
+		[2]: var193_upvw (read and write)
+		[3]: CurrentCamera_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [16] 13. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [16] 13. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [26] 21. Error Block 4 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [26] 21. Error Block 4 end (CF ANALYSIS FAILED)
+end
+script:WaitForChild("MarkerEvent").Event:connect(function(arg1) -- Line 133
+	--[[ Upvalues[4]:
+		[1]: module_upvr_2 (readonly)
+		[2]: GunGUI_upvr_2 (readonly)
+		[3]: TweenService_upvr (readonly)
+		[4]: LocalPlayer_upvr (readonly)
+	]]
+	pcall(function() -- Line 134
+		--[[ Upvalues[5]:
+			[1]: module_upvr_2 (copied, readonly)
+			[2]: arg1 (readonly)
+			[3]: GunGUI_upvr_2 (copied, readonly)
+			[4]: TweenService_upvr (copied, readonly)
+			[5]: LocalPlayer_upvr (copied, readonly)
+		]]
+		if module_upvr_2.HitmarkerEnabled then
+			if arg1 then
+				GunGUI_upvr_2.Crosshair.Hitmarker.ImageColor3 = module_upvr_2.HitmarkerColorHS
+				GunGUI_upvr_2.Crosshair.Hitmarker.ImageTransparency = 0
+				TweenService_upvr:Create(GunGUI_upvr_2.Crosshair.Hitmarker, TweenInfo.new(module_upvr_2.HitmarkerFadeTimeHS, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+					ImageTransparency = 1;
+				}):Play()
+				local clone_6 = GunGUI_upvr_2.Crosshair.MarkerSound:Clone()
+				clone_6.SoundId = "rbxassetid://"..module_upvr_2.HitmarkerSoundID[math.random(1, #module_upvr_2.HitmarkerSoundID)]
+				clone_6.PlaybackSpeed = module_upvr_2.HitmarkerSoundPitchHS
+				clone_6.Parent = LocalPlayer_upvr.PlayerGui
+				clone_6:Play()
+				game:GetService("Debris"):addItem(clone_6, 1.15)
+				return
+			end
+			GunGUI_upvr_2.Crosshair.Hitmarker.ImageColor3 = module_upvr_2.HitmarkerColor
+			GunGUI_upvr_2.Crosshair.Hitmarker.ImageTransparency = 0
+			TweenService_upvr:Create(GunGUI_upvr_2.Crosshair.Hitmarker, TweenInfo.new(module_upvr_2.HitmarkerFadeTime, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {
+				ImageTransparency = 1;
+			}):Play()
+			local clone_8 = GunGUI_upvr_2.Crosshair.MarkerSound:Clone()
+			clone_8.SoundId = "rbxassetid://"..module_upvr_2.HitmarkerSoundID[math.random(1, #module_upvr_2.HitmarkerSoundID)]
+			clone_8.PlaybackSpeed = module_upvr_2.HitmarkerSoundPitch
+			clone_8.Parent = LocalPlayer_upvr.PlayerGui
+			clone_8:Play()
+			game:GetService("Debris"):addItem(clone_8, 1.15)
+		end
+	end)
+end)
+function EjectShell(arg1) -- Line 161
+	--[[ Upvalues[1]:
+		[1]: module_upvr_2 (readonly)
+	]]
+	if module_upvr_2.BulletShellEnabled then
+		local Part_4_upvr = Instance.new("Part")
+		Part_4_upvr.Name = "Chamber"
+		Part_4_upvr.Size = Vector3.new(0.00999, 0.00999, 0.00999)
+		Part_4_upvr.Transparency = 1
+		Part_4_upvr.Anchored = false
+		Part_4_upvr.CanCollide = false
+		Part_4_upvr.TopSurface = Enum.SurfaceType.SmoothNoOutlines
+		Part_4_upvr.BottomSurface = Enum.SurfaceType.SmoothNoOutlines
+		local Weld = Instance.new("Weld", Part_4_upvr)
+		Weld.Part0 = arg1
+		Weld.Part1 = Part_4_upvr
+		Weld.C0 = CFrame.new(module_upvr_2.BulletShellOffset.X, module_upvr_2.BulletShellOffset.Y, module_upvr_2.BulletShellOffset.Z)
+		Part_4_upvr.Position = (arg1.CFrame * CFrame.new(module_upvr_2.BulletShellOffset.X, module_upvr_2.BulletShellOffset.Y, module_upvr_2.BulletShellOffset.Z)).p
+		Part_4_upvr.Parent = workspace.CurrentCamera
+		spawn(function() -- Line 178, Named "spawner"
+			--[[ Upvalues[2]:
+				[1]: Part_4_upvr (readonly)
+				[2]: module_upvr_2 (copied, readonly)
+			]]
+			local Part = Instance.new("Part")
+			Part.CFrame = Part_4_upvr.CFrame * CFrame.fromEulerAnglesXYZ(-2.5, 1, 1)
+			Part.Size = module_upvr_2.ShellSize
+			Part.CanCollide = module_upvr_2.AllowCollide
+			Part.Name = "Shell"
+			Part.Velocity = Part_4_upvr.CFrame.lookVector * 20 + Vector3.new(math.random(-10, 10), 20, math.random(-10, 10))
+			Part.RotVelocity = Vector3.new(0, 200, 0)
+			Part.Parent = workspace.CurrentCamera
+			local SpecialMesh_2 = Instance.new("SpecialMesh")
+			SpecialMesh_2.Scale = module_upvr_2.ShellScale
+			SpecialMesh_2.MeshId = "rbxassetid://"..module_upvr_2.ShellMeshID
+			SpecialMesh_2.TextureId = "rbxassetid://"..module_upvr_2.ShellTextureID
+			SpecialMesh_2.MeshType = "FileMesh"
+			SpecialMesh_2.Parent = Part
+			game:GetService("Debris"):addItem(Part, module_upvr_2.DisappearTime)
+		end)
+		game.Debris:AddItem(Part_4_upvr, 10)
+	end
+end
+local module_upvr_5 = require(GunGUI_upvr_2:WaitForChild("CameraModule"))
+function RecoilCamera() -- Line 202
+	--[[ Upvalues[3]:
+		[1]: module_upvr_2 (readonly)
+		[2]: var193_upvw (read and write)
+		[3]: module_upvr_5 (readonly)
+	]]
+	local var214_upvr
+	if module_upvr_2.CameraRecoilingEnabled then
+		var214_upvr = module_upvr_2
+		local function INLINED_15() -- Internal function, doesn't exist in bytecode
+			var214_upvr = 1 - module_upvr_2.RecoilRedution
+			return var214_upvr
+		end
+		if not var193_upvw or not INLINED_15() then
+			var214_upvr = 1
+		end
+		local var215 = var214_upvr.Recoil * var214_upvr
+		var214_upvr = var215 * RAND(module_upvr_2.AngleX_Min, module_upvr_2.AngleX_Max, module_upvr_2.Accuracy)
+		local radians_upvr = math.rad(var214_upvr)
+		var214_upvr = math.rad(var215 * RAND(module_upvr_2.AngleY_Min, module_upvr_2.AngleY_Max, module_upvr_2.Accuracy))
+		module_upvr_5:accelerate(radians_upvr, var214_upvr, math.rad(var215 * RAND(module_upvr_2.AngleZ_Min, module_upvr_2.AngleZ_Max, module_upvr_2.Accuracy)))
+		delay(0.03, function() -- Line 209
+			--[[ Upvalues[3]:
+				[1]: module_upvr_5 (copied, readonly)
+				[2]: radians_upvr (readonly)
+				[3]: var214_upvr (readonly)
+			]]
+			module_upvr_5:accelerateXY(-radians_upvr, -var214_upvr)
+		end)
+	end
+end
+local VisualizeBullet_upvr_2 = game.ReplicatedStorage:WaitForChild("VisualizeBullet")
+function Fire(arg1, arg2) -- Line 215
+	--[[ Upvalues[6]:
+		[1]: var187_upvw (read and write)
+		[2]: module_upvr_2 (readonly)
+		[3]: LocalPlayer_upvr (readonly)
+		[4]: Parent_upvr (readonly)
+		[5]: GunScript_Server_upvr (readonly)
+		[6]: VisualizeBullet_upvr_2 (readonly)
+	]]
+	if var187_upvw then
+		var187_upvw:Play(nil, nil, module_upvr_2.FireAnimationSpeed)
+	end
+	local unit_2 = (arg2 - arg1:FindFirstChild("GunFirePoint").WorldPosition).unit
+	LocalPlayer_upvr.PlayerScripts.BulletVisualizerClientScript.Visualize:Fire(Parent_upvr, arg1, unit_2, arg1:FindFirstChild("GunFirePoint"), {module_upvr_2.HitEffectEnabled, module_upvr_2.HitSoundIDs, module_upvr_2.HitSoundPitchMin, module_upvr_2.HitSoundPitchMax, module_upvr_2.HitSoundVolume, script:WaitForChild("HitEffect"), module_upvr_2.CustomHitEffect}, {module_upvr_2.BloodEnabled, module_upvr_2.HitCharSndIDs, module_upvr_2.HitCharSndPitchMin, module_upvr_2.HitCharSndPitchMax, module_upvr_2.HitCharSndVolume, script:WaitForChild("BloodEffect")}, {module_upvr_2.BulletHoleEnabled, module_upvr_2.BulletHoleSize, module_upvr_2.BulletHoleTexture, module_upvr_2.PartColor, module_upvr_2.BulletHoleVisibleTime, module_upvr_2.BulletHoleFadeTime}, {module_upvr_2.ExplosiveEnabled, module_upvr_2.ExplosionRadius, module_upvr_2.ExplosionSoundEnabled, module_upvr_2.ExplosionSoundIDs, module_upvr_2.ExplosionSoundPitchMin, module_upvr_2.ExplosionSoundPitchMax, module_upvr_2.ExplosionSoundVolume, module_upvr_2.CustomExplosion, script:WaitForChild("ExplosionEffect")}, {module_upvr_2.BulletTracerEnabled, module_upvr_2.BulletTracerOffset0, module_upvr_2.BulletTracerOffset1, script:WaitForChild("TracerEffect"), module_upvr_2.BulletParticleEnaled, script:WaitForChild("ParticleEffect"), module_upvr_2.Range, module_upvr_2.BulletSpeed, module_upvr_2.DropGravity, module_upvr_2.WindOffset, module_upvr_2.BulletSize, module_upvr_2.BulletColor, module_upvr_2.BulletTransparency, module_upvr_2.BulletMaterial, module_upvr_2.BulletShape, module_upvr_2.BulletMeshEnabled, module_upvr_2.BulletMeshID, module_upvr_2.BulletTextureID, module_upvr_2.BulletMeshScale}, {module_upvr_2.BaseDamage, module_upvr_2.HeadshotDamageMultiplier, module_upvr_2.HeadshotEnabled}, {module_upvr_2.BulletLightEnabled, module_upvr_2.BulletLightBrightness, module_upvr_2.BulletLightColor, module_upvr_2.BulletLightRange, module_upvr_2.BulletLightShadows}, {module_upvr_2.Knockback, module_upvr_2.Lifesteal, module_upvr_2.FlamingBullet, module_upvr_2.FreezingBullet, GunScript_Server_upvr:FindFirstChild("IgniteScript"), GunScript_Server_upvr:FindFirstChild("IcifyScript"), module_upvr_2.IgniteChance, module_upvr_2.IcifyChance}, {module_upvr_2.CriticalDamageEnabled, module_upvr_2.CriticalBaseChance, module_upvr_2.CriticalDamageMultiplier}, {module_upvr_2.GoreEffectEnabled, module_upvr_2.GoreSoundIDs, module_upvr_2.GoreSoundPitchMin, module_upvr_2.GoreSoundPitchMax, module_upvr_2.GoreSoundVolume, script:WaitForChild("GoreEffect")})
+	VisualizeBullet_upvr_2:FireServer(Parent_upvr, arg1, unit_2, arg1:FindFirstChild("GunFirePoint"), {module_upvr_2.HitEffectEnabled, module_upvr_2.HitSoundIDs, module_upvr_2.HitSoundPitchMin, module_upvr_2.HitSoundPitchMax, module_upvr_2.HitSoundVolume, script:WaitForChild("HitEffect"), module_upvr_2.CustomHitEffect}, {module_upvr_2.BloodEnabled, module_upvr_2.HitCharSndIDs, module_upvr_2.HitCharSndPitchMin, module_upvr_2.HitCharSndPitchMax, module_upvr_2.HitCharSndVolume, script:WaitForChild("BloodEffect")}, {module_upvr_2.BulletHoleEnabled, module_upvr_2.BulletHoleSize, module_upvr_2.BulletHoleTexture, module_upvr_2.PartColor, module_upvr_2.BulletHoleVisibleTime, module_upvr_2.BulletHoleFadeTime}, {module_upvr_2.ExplosiveEnabled, module_upvr_2.ExplosionRadius, module_upvr_2.ExplosionSoundEnabled, module_upvr_2.ExplosionSoundIDs, module_upvr_2.ExplosionSoundPitchMin, module_upvr_2.ExplosionSoundPitchMax, module_upvr_2.ExplosionSoundVolume, module_upvr_2.CustomExplosion, script:WaitForChild("ExplosionEffect")}, {module_upvr_2.BulletTracerEnabled, module_upvr_2.BulletTracerOffset0, module_upvr_2.BulletTracerOffset1, script:WaitForChild("TracerEffect"), module_upvr_2.BulletParticleEnaled, script:WaitForChild("ParticleEffect"), module_upvr_2.Range, module_upvr_2.BulletSpeed, module_upvr_2.DropGravity, module_upvr_2.WindOffset, module_upvr_2.BulletSize, module_upvr_2.BulletColor, module_upvr_2.BulletTransparency, module_upvr_2.BulletMaterial, module_upvr_2.BulletShape, module_upvr_2.BulletMeshEnabled, module_upvr_2.BulletMeshID, module_upvr_2.BulletTextureID, module_upvr_2.BulletMeshScale}, {module_upvr_2.WhizSoundEnabled, module_upvr_2.WhizSoundID, module_upvr_2.WhizSoundVolume, module_upvr_2.WhizSoundPitchMin, module_upvr_2.WhizSoundPitchMax, module_upvr_2.WhizDistance}, {module_upvr_2.BulletLightEnabled, module_upvr_2.BulletLightBrightness, module_upvr_2.BulletLightColor, module_upvr_2.BulletLightRange, module_upvr_2.BulletLightShadows})
+end
+local any_LoadAnimation_result1_upvw_4 = Humanoid_upvr:LoadAnimation(Parent_upvr:WaitForChild("ShotgunClipinAnim"))
+local any_LoadAnimation_result1_upvw_3 = Humanoid_upvr:LoadAnimation(Parent_upvr:WaitForChild("ReloadAnim"))
+function Reload() -- Line 242
+	--[[ Upvalues[16]:
+		[1]: var189_upvw (read and write)
+		[2]: var192_upvw (read and write)
+		[3]: Value_upvw_3 (read and write)
+		[4]: module_upvr_2 (readonly)
+		[5]: Value_upvw_4 (read and write)
+		[6]: var193_upvw (read and write)
+		[7]: TweenService_upvr (readonly)
+		[8]: CurrentCamera_upvr (readonly)
+		[9]: module_upvr_6 (readonly)
+		[10]: var194_upvw (read and write)
+		[11]: UserInputService_upvr_2 (readonly)
+		[12]: MouseDeltaSensitivity_upvr (readonly)
+		[13]: any_LoadAnimation_result1_upvw_4 (read and write)
+		[14]: Handle_upvr (readonly)
+		[15]: any_LoadAnimation_result1_upvw_3 (read and write)
+		[16]: ChangeMagAndAmmo_upvr_2 (readonly)
+	]]
+	if var189_upvw and not var192_upvw and (0 < Value_upvw_3 or not module_upvr_2.LimitedAmmoEnabled) or Value_upvw_4 < module_upvr_2.AmmoPerMag then
+		var192_upvw = true
+		if var193_upvw then
+			TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+				FieldOfView = 70;
+			}):Play()
+			module_upvr_6:setcrossscale(1)
+			var194_upvw = false
+			game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+			UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+			var193_upvw = false
+		end
+		UpdateGUI()
+		if module_upvr_2.ShotgunReload then
+			for _ = 1, module_upvr_2.AmmoPerMag - Value_upvw_4 do
+				if any_LoadAnimation_result1_upvw_4 then
+					any_LoadAnimation_result1_upvw_4:Play(nil, nil, module_upvr_2.ShotgunClipinAnimationSpeed)
+				end
+				Handle_upvr.ShotgunClipin:Play()
+				wait(module_upvr_2.ShellClipinSpeed)
+			end
+		end
+		if any_LoadAnimation_result1_upvw_3 then
+			any_LoadAnimation_result1_upvw_3:Play(nil, nil, module_upvr_2.ReloadAnimationSpeed)
+		end
+		Handle_upvr.ReloadSound:Play()
+		wait(module_upvr_2.ReloadTime)
+		if module_upvr_2.LimitedAmmoEnabled then
+			local minimum = math.min(module_upvr_2.AmmoPerMag - Value_upvw_4, Value_upvw_3)
+			Value_upvw_4 += minimum
+			Value_upvw_3 -= minimum
+		else
+			Value_upvw_4 = module_upvr_2.AmmoPerMag
+		end
+		ChangeMagAndAmmo_upvr_2:FireServer(Value_upvw_4, Value_upvw_3)
+		var192_upvw = false
+		UpdateGUI()
+	end
+end
+function UpdateGUI() -- Line 279
+	--[[ Upvalues[6]:
+		[1]: GunGUI_upvr_2 (readonly)
+		[2]: Value_upvw_4 (read and write)
+		[3]: module_upvr_2 (readonly)
+		[4]: Value_upvw_3 (read and write)
+		[5]: var192_upvw (read and write)
+		[6]: UserInputService_upvr_2 (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 43 start (CF ANALYSIS FAILED)
+	GunGUI_upvr_2.Frame.Mag.Fill:TweenSizeAndPosition(UDim2.new(Value_upvw_4 / module_upvr_2.AmmoPerMag, 0, 1, 0), UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, 0.25, true)
+	GunGUI_upvr_2.Frame.Ammo.Fill:TweenSizeAndPosition(UDim2.new(Value_upvw_3 / module_upvr_2.MaxAmmo, 0, 1, 0), UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, 0.25, true)
+	GunGUI_upvr_2.Frame.Mag.Current.Text = Value_upvw_4
+	GunGUI_upvr_2.Frame.Mag.Max.Text = module_upvr_2.AmmoPerMag
+	GunGUI_upvr_2.Frame.Ammo.Current.Text = Value_upvw_3
+	GunGUI_upvr_2.Frame.Ammo.Max.Text = module_upvr_2.MaxAmmo
+	GunGUI_upvr_2.Frame.Mag.Current.Visible = not var192_upvw
+	GunGUI_upvr_2.Frame.Mag.Max.Visible = not var192_upvw
+	GunGUI_upvr_2.Frame.Mag.Frame.Visible = not var192_upvw
+	GunGUI_upvr_2.Frame.Mag.Reloading.Visible = var192_upvw
+	local Frame = GunGUI_upvr_2.Frame
+	if Value_upvw_3 > 0 then
+		Frame = false
+	else
+		Frame = true
+	end
+	Frame.Ammo.Current.Visible = not Frame
+	if Value_upvw_3 > 0 then
+		-- KONSTANTWARNING: GOTO [184] #124
+	end
+	-- KONSTANTERROR: [0] 1. Error Block 43 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [183] 123. Error Block 46 start (CF ANALYSIS FAILED)
+	GunGUI_upvr_2.Frame.Ammo.Max.Visible = not true
+	if Value_upvw_3 > 0 then
+		-- KONSTANTWARNING: GOTO [200] #135
+	end
+	-- KONSTANTERROR: [183] 123. Error Block 46 end (CF ANALYSIS FAILED)
+end
+GunGUI_upvr_2.MobileButtons.AimButton.MouseButton1Click:connect(function() -- Line 311
+	--[[ Upvalues[14]:
+		[1]: var192_upvw (read and write)
+		[2]: var191_upvw (read and write)
+		[3]: var193_upvw (read and write)
+		[4]: var188_upvw (read and write)
+		[5]: module_upvr_2 (readonly)
+		[6]: SOME_upvr (readonly)
+		[7]: CurrentCamera_upvr (readonly)
+		[8]: TweenService_upvr (readonly)
+		[9]: module_upvr_6 (readonly)
+		[10]: UserInputService_upvr_2 (readonly)
+		[11]: MouseDeltaSensitivity_upvr (readonly)
+		[12]: GunGUI_upvr_2 (readonly)
+		[13]: LocalPlayer_upvr (readonly)
+		[14]: var194_upvw (read and write)
+	]]
+	if not var192_upvw and not var191_upvw and var193_upvw == false and var188_upvw == true and module_upvr_2.IronsightEnabled and (SOME_upvr.Head.Position - CurrentCamera_upvr.CoordinateFrame.p).magnitude <= 1 then
+		TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLength, module_upvr_2.EasingStyle, module_upvr_2.EasingDirection), {
+			FieldOfView = module_upvr_2.FieldOfViewIS;
+		}):Play()
+		module_upvr_6:setcrossscale(module_upvr_2.CrossScaleIS)
+		game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.LockFirstPerson
+		UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr * module_upvr_2.MouseSensitiveIS
+		var193_upvw = true
+	else
+		if not var192_upvw and not var191_upvw and var193_upvw == false and var188_upvw == true and module_upvr_2.SniperEnabled and (SOME_upvr.Head.Position - CurrentCamera_upvr.CoordinateFrame.p).magnitude <= 1 then
+			TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLength, module_upvr_2.EasingStyle, module_upvr_2.EasingDirection), {
+				FieldOfView = module_upvr_2.FieldOfViewS;
+			}):Play()
+			module_upvr_6:setcrossscale(module_upvr_2.CrossScaleS)
+			local clone_7 = GunGUI_upvr_2.Scope.ZoomSound:Clone()
+			clone_7.Parent = LocalPlayer_upvr.PlayerGui
+			clone_7:Play()
+			var194_upvw = true
+			game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.LockFirstPerson
+			UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr * module_upvr_2.MouseSensitiveS
+			var193_upvw = true
+			game:GetService("Debris"):addItem(clone_7, 5)
+			return
+		end
+		TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+			FieldOfView = 70;
+		}):Play()
+		module_upvr_6:setcrossscale(1)
+		var194_upvw = false
+		game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+		UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+		var193_upvw = false
+	end
+end)
+GunGUI_upvr_2.MobileButtons.HoldDownButton.MouseButton1Click:connect(function() -- Line 348
+	--[[ Upvalues[12]:
+		[1]: var192_upvw (read and write)
+		[2]: var191_upvw (read and write)
+		[3]: module_upvr_2 (readonly)
+		[4]: any_LoadAnimation_result1_upvw (read and write)
+		[5]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[6]: var193_upvw (read and write)
+		[7]: TweenService_upvr (readonly)
+		[8]: CurrentCamera_upvr (readonly)
+		[9]: module_upvr_6 (readonly)
+		[10]: var194_upvw (read and write)
+		[11]: UserInputService_upvr_2 (readonly)
+		[12]: MouseDeltaSensitivity_upvr (readonly)
+	]]
+	-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 3. Error Block 2 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [2] 3. Error Block 2 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [4] 5. Error Block 3 start (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [4] 5. Error Block 3 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [27] 24. Error Block 7 start (CF ANALYSIS FAILED)
+	TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+		FieldOfView = 70;
+	}):Play()
+	module_upvr_6:setcrossscale(1)
+	var194_upvw = false
+	game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+	UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+	var193_upvw = false
+	do
+		return
+	end
+	-- KONSTANTERROR: [27] 24. Error Block 7 end (CF ANALYSIS FAILED)
+	-- KONSTANTERROR: [77] 60. Error Block 11 start (CF ANALYSIS FAILED)
+	var191_upvw = false
+	any_LoadAnimation_result1_upvw:Play(nil, nil, module_upvr_2.IdleAnimationSpeed)
+	if any_LoadAnimation_result1_upvw_5 then
+		any_LoadAnimation_result1_upvw_5:Stop()
+	end
+	-- KONSTANTERROR: [77] 60. Error Block 11 end (CF ANALYSIS FAILED)
+end)
+GunGUI_upvr_2.MobileButtons.ReloadButton.MouseButton1Click:connect(function() -- Line 372
+	Reload()
+end)
+GunGUI_upvr_2.MobileButtons.FireButton.MouseButton1Down:connect(function() -- Line 378
+	--[[ Upvalues[19]:
+		[1]: var190_upvw (read and write)
+		[2]: var188_upvw (read and write)
+		[3]: var189_upvw (read and write)
+		[4]: var192_upvw (read and write)
+		[5]: var191_upvw (read and write)
+		[6]: Value_upvw_4 (read and write)
+		[7]: Humanoid_upvr (readonly)
+		[8]: module_upvr_2 (readonly)
+		[9]: var184_upvw (read and write)
+		[10]: LocalPlayer_upvr (readonly)
+		[11]: VisualizeMuzzle_upvr (readonly)
+		[12]: tbl_19_upvr (readonly)
+		[13]: module_upvr_6 (readonly)
+		[14]: Get3DPosition_upvr (readonly)
+		[15]: GunGUI_upvr_2 (readonly)
+		[16]: ChangeMagAndAmmo_upvr_2 (readonly)
+		[17]: Value_upvw_3 (read and write)
+		[18]: Handle_upvr (readonly)
+		[19]: var183_upvw (read and write)
+	]]
+	var190_upvw = true
+	if var188_upvw and var189_upvw and var190_upvw and not var192_upvw and not var191_upvw and 0 < Value_upvw_4 then
+		local var256
+		if 0 < Humanoid_upvr.Health then
+			var189_upvw = false
+			if module_upvr_2.ChargedShotEnabled then
+				if var184_upvw:FindFirstChild("ChargeSound") then
+					var184_upvw.ChargeSound:Play()
+				end
+				wait(module_upvr_2.ChargingTime)
+				var256 = true
+			end
+			if module_upvr_2.MinigunEnabled then
+				if var184_upvw:FindFirstChild("WindUp") then
+					var184_upvw.WindUp:Play()
+				end
+				wait(module_upvr_2.DelayBeforeFiring)
+			end
+			repeat
+				local var257
+				if not var257 then break end
+				var257 = var192_upvw
+				if var257 then break end
+				var257 = var191_upvw
+				if var257 then break end
+				var257 = var190_upvw
+				if var257 or not var256 then break end
+				var257 = Value_upvw_4
+				if 0 >= var257 then break end
+				var257 = Humanoid_upvr.Health
+				if 0 >= var257 then break end
+				var256 = false
+				var257 = LocalPlayer_upvr.PlayerScripts.BulletVisualizerServerScript.VisualizeM
+				var257 = var257:Fire
+				var257(var184_upvw, module_upvr_2.MuzzleFlashEnabled, {module_upvr_2.MuzzleLightEnabled, module_upvr_2.LightBrightness, module_upvr_2.LightColor, module_upvr_2.LightRange, module_upvr_2.LightShadows, module_upvr_2.VisibleTime}, script:WaitForChild("MuzzleEffect"))
+				var257 = VisualizeMuzzle_upvr
+				var257 = var257:FireServer
+				var257(var184_upvw, module_upvr_2.MuzzleFlashEnabled, {module_upvr_2.MuzzleLightEnabled, module_upvr_2.LightBrightness, module_upvr_2.LightColor, module_upvr_2.LightRange, module_upvr_2.LightShadows, module_upvr_2.VisibleTime}, script:WaitForChild("MuzzleEffect"))
+				local function INLINED_16() -- Internal function, doesn't exist in bytecode
+					var257 = module_upvr_2.BulletPerBurst
+					return var257
+				end
+				if not module_upvr_2.BurstFireEnabled or not INLINED_16() then
+					var257 = 1
+				end
+				for _ = 1, var257 do
+					tbl_19_upvr.knockback.t = Vector3.new(-1, -0.1000, 0)
+					spawn(RecoilCamera)
+					EjectShell(var184_upvw)
+					module_upvr_6.crossspring:accelerate(module_upvr_2.CrossExpansion)
+					LocalPlayer_upvr.PlayerScripts.BulletVisualizerServerScript.Play:Fire({
+						SoundId = var184_upvw.FireSound.SoundId;
+						Position = var184_upvw;
+						Effects = module_upvr_2.EchoEffect;
+						Volume = var184_upvw.FireSound.Volume;
+						EmitterSize = var184_upvw.FireSound.EmitterSize;
+						Pitch = var184_upvw.FireSound.PlaybackSpeed;
+						Replicate = module_upvr_2.Replicate;
+					})
+					local var261
+					local function INLINED_17() -- Internal function, doesn't exist in bytecode
+						var261 = module_upvr_2.BulletPerShot
+						return var261
+					end
+					if not module_upvr_2.ShotgunEnabled or not INLINED_17() then
+						var261 = 1
+					end
+					for _ = 1, var261 do
+						Fire(var184_upvw, Get3DPosition_upvr(GunGUI_upvr_2.Crosshair.AbsolutePosition))
+					end
+					var261 = Value_upvw_4 - 1
+					Value_upvw_4 = var261
+					var261 = ChangeMagAndAmmo_upvr_2:FireServer
+					var261(Value_upvw_4, Value_upvw_3)
+					var261 = UpdateGUI
+					var261()
+					var261 = module_upvr_2.BurstFireEnabled
+					if var261 then
+						var261 = wait
+						var261(module_upvr_2.BurstRate)
+					end
+					var261 = Value_upvw_4
+					if var261 <= 0 then break end
+				end
+				local function INLINED_18() -- Internal function, doesn't exist in bytecode
+					var257 = var183_upvw
+					return var257
+				end
+				if var184_upvw ~= Handle_upvr or not module_upvr_2.DualEnabled or not INLINED_18() then
+					var257 = Handle_upvr
+				end
+				var184_upvw = var257
+				var257 = wait
+				var257(module_upvr_2.FireRate)
+				var257 = module_upvr_2.Auto
+			until not var257
+			if var184_upvw.FireSound.Playing then
+				if var184_upvw.FireSound.Looped then
+					var184_upvw.FireSound:Stop()
+				end
+			end
+			if module_upvr_2.MinigunEnabled then
+				if var184_upvw:FindFirstChild("WindDown") then
+					var184_upvw.WindDown:Play()
+				end
+				wait(module_upvr_2.DelayAfterFiring)
+			end
+			var189_upvw = true
+			if Value_upvw_4 <= 0 then
+				Reload()
+			end
+		end
+	end
+end)
+GunGUI_upvr_2.MobileButtons.FireButton.MouseButton1Up:connect(function() -- Line 446
+	--[[ Upvalues[1]:
+		[1]: var190_upvw (read and write)
+	]]
+	var190_upvw = false
+end)
+mouse_upvr_2.Button1Down:connect(function() -- Line 452
+	--[[ Upvalues[20]:
+		[1]: UserInputService_upvr_2 (readonly)
+		[2]: var190_upvw (read and write)
+		[3]: var188_upvw (read and write)
+		[4]: var189_upvw (read and write)
+		[5]: var192_upvw (read and write)
+		[6]: var191_upvw (read and write)
+		[7]: Value_upvw_4 (read and write)
+		[8]: Humanoid_upvr (readonly)
+		[9]: module_upvr_2 (readonly)
+		[10]: var184_upvw (read and write)
+		[11]: LocalPlayer_upvr (readonly)
+		[12]: VisualizeMuzzle_upvr (readonly)
+		[13]: tbl_19_upvr (readonly)
+		[14]: module_upvr_6 (readonly)
+		[15]: Get3DPosition_upvr (readonly)
+		[16]: mouse_upvr_2 (readonly)
+		[17]: ChangeMagAndAmmo_upvr_2 (readonly)
+		[18]: Value_upvw_3 (read and write)
+		[19]: Handle_upvr (readonly)
+		[20]: var183_upvw (read and write)
+	]]
+	if not UserInputService_upvr_2.TouchEnabled then
+		var190_upvw = true
+		if var188_upvw and var189_upvw and var190_upvw and not var192_upvw and not var191_upvw then
+			if 0 < Value_upvw_4 then
+				local var268
+				if 0 < Humanoid_upvr.Health then
+					var189_upvw = false
+					if module_upvr_2.ChargedShotEnabled then
+						if var184_upvw:FindFirstChild("ChargeSound") then
+							var184_upvw.ChargeSound:Play()
+						end
+						wait(module_upvr_2.ChargingTime)
+						var268 = true
+					end
+					if module_upvr_2.MinigunEnabled then
+						if var184_upvw:FindFirstChild("WindUp") then
+							var184_upvw.WindUp:Play()
+						end
+						wait(module_upvr_2.DelayBeforeFiring)
+					end
+					repeat
+						local var269
+						if not var269 then break end
+						var269 = var192_upvw
+						if var269 then break end
+						var269 = var191_upvw
+						if var269 then break end
+						var269 = var190_upvw
+						if var269 or not var268 then break end
+						var269 = Value_upvw_4
+						if 0 >= var269 then break end
+						var269 = Humanoid_upvr.Health
+						if 0 >= var269 then break end
+						var268 = false
+						var269 = LocalPlayer_upvr.PlayerScripts.BulletVisualizerServerScript.VisualizeM
+						var269 = var269:Fire
+						var269(var184_upvw, module_upvr_2.MuzzleFlashEnabled, {module_upvr_2.MuzzleLightEnabled, module_upvr_2.LightBrightness, module_upvr_2.LightColor, module_upvr_2.LightRange, module_upvr_2.LightShadows, module_upvr_2.VisibleTime}, script:WaitForChild("MuzzleEffect"))
+						var269 = VisualizeMuzzle_upvr
+						var269 = var269:FireServer
+						var269(var184_upvw, module_upvr_2.MuzzleFlashEnabled, {module_upvr_2.MuzzleLightEnabled, module_upvr_2.LightBrightness, module_upvr_2.LightColor, module_upvr_2.LightRange, module_upvr_2.LightShadows, module_upvr_2.VisibleTime}, script:WaitForChild("MuzzleEffect"))
+						local function INLINED_19() -- Internal function, doesn't exist in bytecode
+							var269 = module_upvr_2.BulletPerBurst
+							return var269
+						end
+						if not module_upvr_2.BurstFireEnabled or not INLINED_19() then
+							var269 = 1
+						end
+						for _ = 1, var269 do
+							tbl_19_upvr.knockback.t = Vector3.new(-1, -0.1000, 0)
+							spawn(RecoilCamera)
+							EjectShell(var184_upvw)
+							module_upvr_6.crossspring:accelerate(module_upvr_2.CrossExpansion)
+							LocalPlayer_upvr.PlayerScripts.BulletVisualizerServerScript.Play:Fire({
+								SoundId = var184_upvw.FireSound.SoundId;
+								Position = var184_upvw;
+								Effects = module_upvr_2.EchoEffect;
+								Volume = var184_upvw.FireSound.Volume;
+								EmitterSize = var184_upvw.FireSound.EmitterSize;
+								Pitch = var184_upvw.FireSound.PlaybackSpeed;
+								Replicate = module_upvr_2.Replicate;
+							})
+							local var273
+							local function INLINED_20() -- Internal function, doesn't exist in bytecode
+								var273 = module_upvr_2.BulletPerShot
+								return var273
+							end
+							if not module_upvr_2.ShotgunEnabled or not INLINED_20() then
+								var273 = 1
+							end
+							for _ = 1, var273 do
+								Fire(var184_upvw, Get3DPosition_upvr(mouse_upvr_2))
+							end
+							var273 = Value_upvw_4 - 1
+							Value_upvw_4 = var273
+							var273 = ChangeMagAndAmmo_upvr_2:FireServer
+							var273(Value_upvw_4, Value_upvw_3)
+							var273 = UpdateGUI
+							var273()
+							var273 = module_upvr_2.BurstFireEnabled
+							if var273 then
+								var273 = wait
+								var273(module_upvr_2.BurstRate)
+							end
+							var273 = Value_upvw_4
+							if var273 <= 0 then break end
+						end
+						local function INLINED_21() -- Internal function, doesn't exist in bytecode
+							var269 = var183_upvw
+							return var269
+						end
+						if var184_upvw ~= Handle_upvr or not module_upvr_2.DualEnabled or not INLINED_21() then
+							var269 = Handle_upvr
+						end
+						var184_upvw = var269
+						var269 = wait
+						var269(module_upvr_2.FireRate)
+						var269 = module_upvr_2.Auto
+					until not var269
+					if var184_upvw.FireSound.Playing then
+						if var184_upvw.FireSound.Looped then
+							var184_upvw.FireSound:Stop()
+						end
+					end
+					if module_upvr_2.MinigunEnabled then
+						if var184_upvw:FindFirstChild("WindDown") then
+							var184_upvw.WindDown:Play()
+						end
+						wait(module_upvr_2.DelayAfterFiring)
+					end
+					var189_upvw = true
+					if Value_upvw_4 <= 0 then
+						Reload()
+					end
+				end
+			end
+		end
+	end
+end)
+mouse_upvr_2.Button1Up:connect(function() -- Line 519
+	--[[ Upvalues[2]:
+		[1]: UserInputService_upvr_2 (readonly)
+		[2]: var190_upvw (read and write)
+	]]
+	if not UserInputService_upvr_2.TouchEnabled then
+		var190_upvw = false
+	end
+end)
+ChangeMagAndAmmo_upvr_2.OnClientEvent:connect(function(arg1, arg2) -- Line 525
+	--[[ Upvalues[2]:
+		[1]: Value_upvw_4 (read and write)
+		[2]: Value_upvw_3 (read and write)
+	]]
+	Value_upvw_4 = arg1
+	Value_upvw_3 = arg2
+	UpdateGUI()
+end)
+local any_LoadAnimation_result1_upvw_2 = Humanoid_upvr:LoadAnimation(Parent_upvr:WaitForChild("EquippedAnim"))
+Parent_upvr.Equipped:connect(function(arg1) -- Line 530
+	--[[ Upvalues[22]:
+		[1]: var188_upvw (read and write)
+		[2]: module_upvr_2 (readonly)
+		[3]: GunGUI_upvr_2 (readonly)
+		[4]: LocalPlayer_upvr (readonly)
+		[5]: Handle_upvr (readonly)
+		[6]: Humanoid_upvr (readonly)
+		[7]: module_upvr_6 (readonly)
+		[8]: UserInputService_upvr_2 (readonly)
+		[9]: any_LoadAnimation_result1_upvw_2 (read and write)
+		[10]: any_LoadAnimation_result1_upvw (read and write)
+		[11]: var192_upvw (read and write)
+		[12]: var191_upvw (read and write)
+		[13]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[14]: var193_upvw (read and write)
+		[15]: TweenService_upvr (readonly)
+		[16]: CurrentCamera_upvr (readonly)
+		[17]: var194_upvw (read and write)
+		[18]: MouseDeltaSensitivity_upvr (readonly)
+		[19]: mouse_upvr_2 (readonly)
+		[20]: var183_upvw (read and write)
+		[21]: Parent_upvr (readonly)
+		[22]: var182_upvw (read and write)
+	]]
+	-- KONSTANTWARNING: Variable analysis failed. Output will have some incorrect variable assignments
+	var188_upvw = true
+	if module_upvr_2.AmmoPerMag ~= math.huge then
+		GunGUI_upvr_2.Frame.Visible = true
+	end
+	GunGUI_upvr_2.Parent = LocalPlayer_upvr.PlayerGui
+	UpdateGUI()
+	Handle_upvr.EquippedSound:Play()
+	if module_upvr_2.WalkSpeedRedutionEnabled then
+		Humanoid_upvr.WalkSpeed -= module_upvr_2.WalkSpeedRedution
+	else
+		Humanoid_upvr.WalkSpeed = Humanoid_upvr.WalkSpeed
+	end
+	module_upvr_6:setcrosssettings(module_upvr_2.CrossSize, module_upvr_2.CrossSpeed, module_upvr_2.CrossDamper)
+	UserInputService_upvr_2.MouseIconEnabled = false
+	if any_LoadAnimation_result1_upvw_2 then
+		any_LoadAnimation_result1_upvw_2:Play(nil, nil, module_upvr_2.EquippedAnimationSpeed)
+	end
+	if any_LoadAnimation_result1_upvw then
+		any_LoadAnimation_result1_upvw:Play(nil, nil, module_upvr_2.IdleAnimationSpeed)
+	end
+	arg1.KeyDown:connect(function(arg1_4) -- Line 545
+		--[[ Upvalues[12]:
+			[1]: var192_upvw (copied, read and write)
+			[2]: var191_upvw (copied, read and write)
+			[3]: module_upvr_2 (copied, readonly)
+			[4]: any_LoadAnimation_result1_upvw (copied, read and write)
+			[5]: any_LoadAnimation_result1_upvw_5 (copied, read and write)
+			[6]: var193_upvw (copied, read and write)
+			[7]: TweenService_upvr (copied, readonly)
+			[8]: CurrentCamera_upvr (copied, readonly)
+			[9]: module_upvr_6 (copied, readonly)
+			[10]: var194_upvw (copied, read and write)
+			[11]: UserInputService_upvr_2 (copied, readonly)
+			[12]: MouseDeltaSensitivity_upvr (copied, readonly)
+		]]
+		-- KONSTANTERROR: [0] 1. Error Block 1 start (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [0] 1. Error Block 1 end (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [6] 5. Error Block 2 start (CF ANALYSIS FAILED)
+		Reload()
+		do
+			return
+		end
+		-- KONSTANTERROR: [6] 5. Error Block 2 end (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [10] 8. Error Block 3 start (CF ANALYSIS FAILED)
+		-- KONSTANTERROR: [10] 8. Error Block 3 end (CF ANALYSIS FAILED)
+	end)
+	mouse_upvr_2.Button2Down:connect(function() -- Line 570
+		--[[ Upvalues[13]:
+			[1]: var192_upvw (copied, read and write)
+			[2]: var191_upvw (copied, read and write)
+			[3]: var193_upvw (copied, read and write)
+			[4]: var188_upvw (copied, read and write)
+			[5]: module_upvr_2 (copied, readonly)
+			[6]: CurrentCamera_upvr (copied, readonly)
+			[7]: TweenService_upvr (copied, readonly)
+			[8]: module_upvr_6 (copied, readonly)
+			[9]: UserInputService_upvr_2 (copied, readonly)
+			[10]: MouseDeltaSensitivity_upvr (copied, readonly)
+			[11]: GunGUI_upvr_2 (copied, readonly)
+			[12]: LocalPlayer_upvr (copied, readonly)
+			[13]: var194_upvw (copied, read and write)
+		]]
+		if not var192_upvw and not var191_upvw and var193_upvw == false and var188_upvw == true and module_upvr_2.IronsightEnabled and (CurrentCamera_upvr.Focus.p - CurrentCamera_upvr.CoordinateFrame.p).magnitude <= 1 then
+			TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLength, module_upvr_2.EasingStyle, module_upvr_2.EasingDirection), {
+				FieldOfView = module_upvr_2.FieldOfViewIS;
+			}):Play()
+			module_upvr_6:setcrossscale(module_upvr_2.CrossScaleIS)
+			game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.LockFirstPerson
+			UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr * module_upvr_2.MouseSensitiveIS
+			var193_upvw = true
+		elseif not var192_upvw and not var191_upvw and var193_upvw == false and var188_upvw == true and module_upvr_2.SniperEnabled and (CurrentCamera_upvr.Focus.p - CurrentCamera_upvr.CoordinateFrame.p).magnitude <= 1 then
+			TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLength, module_upvr_2.EasingStyle, module_upvr_2.EasingDirection), {
+				FieldOfView = module_upvr_2.FieldOfViewS;
+			}):Play()
+			module_upvr_6:setcrossscale(module_upvr_2.CrossScaleS)
+			local clone_5 = GunGUI_upvr_2.Scope.ZoomSound:Clone()
+			clone_5.Parent = LocalPlayer_upvr.PlayerGui
+			clone_5:Play()
+			var194_upvw = true
+			game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.LockFirstPerson
+			UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr * module_upvr_2.MouseSensitiveS
+			var193_upvw = true
+			game:GetService("Debris"):addItem(clone_5, clone_5.TimeLength)
+		end
+	end)
+	mouse_upvr_2.Button2Up:connect(function() -- Line 595
+		--[[ Upvalues[8]:
+			[1]: var193_upvw (copied, read and write)
+			[2]: TweenService_upvr (copied, readonly)
+			[3]: CurrentCamera_upvr (copied, readonly)
+			[4]: module_upvr_2 (copied, readonly)
+			[5]: module_upvr_6 (copied, readonly)
+			[6]: var194_upvw (copied, read and write)
+			[7]: UserInputService_upvr_2 (copied, readonly)
+			[8]: MouseDeltaSensitivity_upvr (copied, readonly)
+		]]
+		if var193_upvw then
+			TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+				FieldOfView = 70;
+			}):Play()
+			module_upvr_6:setcrossscale(1)
+			var194_upvw = false
+			game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+			UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+			var193_upvw = false
+		end
+	end)
+	if module_upvr_2.DualEnabled then
+		local var285
+		if not workspace.FilteringEnabled then
+			var285 = false
+			var183_upvw.CanCollide = var285
+			var285 = Parent_upvr
+			if not var285.Parent:FindFirstChild("Left Arm") then
+				var285 = Parent_upvr
+				local LeftHand_2 = var285.Parent:FindFirstChild("LeftHand")
+			end
+			var285 = Parent_upvr.Parent:FindFirstChild("Right Arm")
+			if not var285 then
+				var285 = Parent_upvr.Parent:FindFirstChild("RightHand")
+			end
+			if var285 then
+				local RightGrip = var285:WaitForChild("RightGrip", 0.01)
+				if RightGrip then
+					var182_upvw = RightGrip:Clone()
+					var182_upvw.Name = "LeftGrip"
+					var182_upvw.Part0 = LeftHand_2
+					var182_upvw.Part1 = var183_upvw
+					var182_upvw.Parent = LeftHand_2
+				end
+			end
+		end
+	end
+end)
+Parent_upvr.Unequipped:connect(function() -- Line 624
+	--[[ Upvalues[16]:
+		[1]: var191_upvw (read and write)
+		[2]: var188_upvw (read and write)
+		[3]: GunGUI_upvr_2 (readonly)
+		[4]: module_upvr_2 (readonly)
+		[5]: Humanoid_upvr (readonly)
+		[6]: UserInputService_upvr_2 (readonly)
+		[7]: any_LoadAnimation_result1_upvw (read and write)
+		[8]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[9]: var193_upvw (read and write)
+		[10]: TweenService_upvr (readonly)
+		[11]: CurrentCamera_upvr (readonly)
+		[12]: module_upvr_6 (readonly)
+		[13]: var194_upvw (read and write)
+		[14]: MouseDeltaSensitivity_upvr (readonly)
+		[15]: var183_upvw (read and write)
+		[16]: var182_upvw (read and write)
+	]]
+	var191_upvw = false
+	var188_upvw = false
+	GunGUI_upvr_2.Parent = script
+	GunGUI_upvr_2.Frame.Visible = false
+	if module_upvr_2.WalkSpeedRedutionEnabled then
+		Humanoid_upvr.WalkSpeed += module_upvr_2.WalkSpeedRedution
+	else
+		Humanoid_upvr.WalkSpeed = Humanoid_upvr.WalkSpeed
+	end
+	UserInputService_upvr_2.MouseIconEnabled = true
+	if any_LoadAnimation_result1_upvw then
+		any_LoadAnimation_result1_upvw:Stop()
+	end
+	if any_LoadAnimation_result1_upvw_5 then
+		any_LoadAnimation_result1_upvw_5:Stop()
+	end
+	if var193_upvw then
+		TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+			FieldOfView = 70;
+		}):Play()
+		module_upvr_6:setcrossscale(1)
+		var194_upvw = false
+		game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+		UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+		var193_upvw = false
+	end
+	if module_upvr_2.DualEnabled and not workspace.FilteringEnabled then
+		var183_upvw.CanCollide = true
+		if var182_upvw then
+			var182_upvw:Destroy()
+		end
+	end
+end)
+Humanoid_upvr.Died:connect(function() -- Line 652
+	--[[ Upvalues[16]:
+		[1]: var191_upvw (read and write)
+		[2]: var188_upvw (read and write)
+		[3]: GunGUI_upvr_2 (readonly)
+		[4]: module_upvr_2 (readonly)
+		[5]: Humanoid_upvr (readonly)
+		[6]: UserInputService_upvr_2 (readonly)
+		[7]: any_LoadAnimation_result1_upvw (read and write)
+		[8]: any_LoadAnimation_result1_upvw_5 (read and write)
+		[9]: var193_upvw (read and write)
+		[10]: TweenService_upvr (readonly)
+		[11]: CurrentCamera_upvr (readonly)
+		[12]: module_upvr_6 (readonly)
+		[13]: var194_upvw (read and write)
+		[14]: MouseDeltaSensitivity_upvr (readonly)
+		[15]: var183_upvw (read and write)
+		[16]: var182_upvw (read and write)
+	]]
+	var191_upvw = false
+	var188_upvw = false
+	GunGUI_upvr_2.Parent = script
+	GunGUI_upvr_2.Frame.Visible = false
+	if module_upvr_2.WalkSpeedRedutionEnabled then
+		Humanoid_upvr.WalkSpeed += module_upvr_2.WalkSpeedRedution
+	else
+		Humanoid_upvr.WalkSpeed = Humanoid_upvr.WalkSpeed
+	end
+	UserInputService_upvr_2.MouseIconEnabled = true
+	if any_LoadAnimation_result1_upvw then
+		any_LoadAnimation_result1_upvw:Stop()
+	end
+	if any_LoadAnimation_result1_upvw_5 then
+		any_LoadAnimation_result1_upvw_5:Stop()
+	end
+	if var193_upvw then
+		TweenService_upvr:Create(CurrentCamera_upvr, TweenInfo.new(module_upvr_2.TweenLengthNAD, module_upvr_2.EasingStyleNAD, module_upvr_2.EasingDirectionNAD), {
+			FieldOfView = 70;
+		}):Play()
+		module_upvr_6:setcrossscale(1)
+		var194_upvw = false
+		game:GetService("Players").LocalPlayer.CameraMode = Enum.CameraMode.Classic
+		UserInputService_upvr_2.MouseDeltaSensitivity = MouseDeltaSensitivity_upvr
+		var193_upvw = false
+	end
+	if module_upvr_2.DualEnabled and not workspace.FilteringEnabled then
+		var183_upvw.CanCollide = true
+		if var182_upvw then
+			var182_upvw:Destroy()
+		end
+	end
+end)
+game:GetService("RunService"):BindToRenderStep("Scope", Enum.RenderPriority.First.Value, function(arg1) -- Line 710
+	--[[ Upvalues[1]:
+		[1]: tbl_19_upvr (readonly)
+	]]
+	tbl_19_upvr.knockback.t = tbl_19_upvr.knockback.t:lerp(Vector3.new(), 0.2)
+end)
+local zero_vector2_upvw = Vector2.new()
+game:GetService("RunService"):BindToRenderStep("Mouse", Enum.RenderPriority.Input.Value, function() -- Line 714
+	--[[ Upvalues[9]:
+		[1]: UserInputService_upvr_2 (readonly)
+		[2]: module_upvr_2 (readonly)
+		[3]: var194_upvw (read and write)
+		[4]: GunGUI_upvr_2 (readonly)
+		[5]: tbl_19_upvr (readonly)
+		[6]: mouse_upvr_2 (readonly)
+		[7]: zero_vector2_upvw (read and write)
+		[8]: SOME_upvr (readonly)
+		[9]: CurrentCamera_upvr (readonly)
+	]]
+	local var295 = UserInputService_upvr_2:GetMouseDelta() / module_upvr_2.ScopeSensitive
+	if var194_upvw and UserInputService_upvr_2.MouseEnabled and UserInputService_upvr_2.KeyboardEnabled then
+		GunGUI_upvr_2.Scope.Position = UDim2.new(0, tbl_19_upvr.scope.p.x + tbl_19_upvr.knockback.p.y * 1000, 0, tbl_19_upvr.scope.p.y + tbl_19_upvr.knockback.p.x * 200)
+		local var296 = GunGUI_upvr_2.Scope.AbsoluteSize.x * 0.5
+		tbl_19_upvr.scope.t = Vector3.new(mouse_upvr_2.x - var296 - var295.x, mouse_upvr_2.y - var296 - var295.y, 0)
+		zero_vector2_upvw = Vector2.new(mouse_upvr_2.x, mouse_upvr_2.y)
+	elseif var194_upvw and UserInputService_upvr_2.TouchEnabled and not UserInputService_upvr_2.MouseEnabled and not UserInputService_upvr_2.KeyboardEnabled then
+		GunGUI_upvr_2.Scope.Position = UDim2.new(0, tbl_19_upvr.scope.p.x + tbl_19_upvr.knockback.p.y * 1000, 0, tbl_19_upvr.scope.p.y + tbl_19_upvr.knockback.p.x * 200)
+		local var297 = GunGUI_upvr_2.Scope.AbsoluteSize.x * 0.5
+		tbl_19_upvr.scope.t = Vector3.new(GunGUI_upvr_2.Crosshair.AbsolutePosition.X - var297 - var295.x, GunGUI_upvr_2.Crosshair.AbsolutePosition.Y - var297 - var295.y, 0)
+		zero_vector2_upvw = Vector2.new(GunGUI_upvr_2.Crosshair.AbsolutePosition.X, GunGUI_upvr_2.Crosshair.AbsolutePosition.Y)
+	end
+	GunGUI_upvr_2.Scope.Visible = var194_upvw
+	if not var194_upvw then
+		GunGUI_upvr_2.Crosshair.Main.Visible = true
+	else
+		GunGUI_upvr_2.Crosshair.Main.Visible = false
+	end
+	if UserInputService_upvr_2.MouseEnabled and UserInputService_upvr_2.KeyboardEnabled then
+		GunGUI_upvr_2.Crosshair.Position = UDim2.new(0, mouse_upvr_2.X, 0, mouse_upvr_2.Y)
+	else
+		if UserInputService_upvr_2.TouchEnabled and not UserInputService_upvr_2.MouseEnabled and not UserInputService_upvr_2.KeyboardEnabled and 2 < (SOME_upvr.Head.Position - CurrentCamera_upvr.CoordinateFrame.p).magnitude then
+			GunGUI_upvr_2.Crosshair.Position = UDim2.new(0.5, 0, 0.4, -50)
+			return
+		end
+		if UserInputService_upvr_2.TouchEnabled and not UserInputService_upvr_2.MouseEnabled and not UserInputService_upvr_2.KeyboardEnabled and (SOME_upvr.Head.Position - CurrentCamera_upvr.CoordinateFrame.p).magnitude <= 2 then
+			GunGUI_upvr_2.Crosshair.Position = UDim2.new(0.5, -1, 0.5, -19)
+		end
+	end
+end)
